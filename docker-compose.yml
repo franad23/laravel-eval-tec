@@ -1,0 +1,65 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/php/Dockerfile
+    image: laravel-app
+    container_name: laravel_app
+    working_dir: /var/www
+    user: "33:33"
+    volumes:
+      - ./src:/var/www
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    command: >
+      sh -c "
+        composer install &&
+        php artisan key:generate &&
+        php artisan serve --host=0.0.0.0 --port=8000
+      "
+
+  db:
+    image: postgres:16
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_DB: laravel
+      POSTGRES_USER: laravel
+      POSTGRES_PASSWORD: secret
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+
+  redis:
+    image: redis:7
+    container_name: redis_cache
+    ports:
+      - "6379:6379"
+
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: redis_ui
+    environment:
+      REDIS_HOSTS: "local:redis_cache:6379"
+      REDIS_URL: "redis://redis_cache:6379/1"
+    ports:
+      - "8081:8081"
+    depends_on:
+      - redis
+
+volumes:
+  pgdata:
