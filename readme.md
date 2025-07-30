@@ -37,8 +37,8 @@ La API expone dos endpoints accesibles desde **http://localhost:8000/**
 		http://localhost:8000/api/event-registration?id=2
 	```
 ### Recordá
-	Si se usa postman o thunderclient para realizar las consultas recordar de colocar en los HEADERS **Accept:application/json** para ver las respuestas JSON de manera correcta.
 
+Si se usa postman o thunderclient para realizar las consultas recordar de colocar en los HEADERS **Accept:application/json** para ver las respuestas JSON de manera correcta.
 
 ## Visualizar contador
 
