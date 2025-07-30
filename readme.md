@@ -1,6 +1,6 @@
 ## Consideraciones previas
 
-El proyecto al estar dockerizado se debe tener el mismo antes, por lo tanto correr **docker -v** y verificar si el mismo esta instalado sino se puede instalar desde [aqui](https://docs.docker.com/)
+El proyecto al estar dockerizado se debe tener el mismo antes, por lo tanto correr **docker -v** y verificar esta instalado sino se puede instalar desde [aqui](https://docs.docker.com/)
 
 ## Paso 1 – Levantar el entorno
 
@@ -38,8 +38,28 @@ La API expone dos endpoints accesibles desde **http://localhost:8000/**
 	```
 ### Recordá
 
-Si se usa postman o thunderclient para realizar las consultas recordar de colocar en los HEADERS **Accept:application/json** para ver las respuestas JSON de manera correcta.
+Si usás Postman, Thunder Client u otra herramienta para realizar peticiones, agregá el siguiente header para ver correctamente las respuestas JSON:
+
+```
+  Accept: application/json
+```
+
+
 
 ## Visualizar contador
 
 El contador que se solicito se encuentra en un redis en la url **http://localhost:8081/** bajo la key **laravel-database-Event total count**
+
+
+
+## Resumen de Servicios Docker y Puertos
+| Servicio            | Contenedor    | Imagen Base             | Puerto Local | Función Principal                          |
+| ------------------- | ------------- | ----------------------- | ------------ | ------------------------------------------ |
+| **App (Laravel)**   | `laravel_app` | `laravel-app` (custom)  | `8000`       | Aplicación Laravel accesible vía web       |
+| **PostgreSQL**      | `postgres_db` | `postgres:16`           | `5432`       | Base de datos principal                    |
+| **pgAdmin**         | `pgadmin`     | `dpage/pgadmin4`        | `8080`       | Interfaz web para gestionar PostgreSQL     |
+| **Redis**           | `redis_cache` | `redis:7`               | `6379`       | Cache y almacenamiento de datos en memoria |
+| **Redis Commander** | `redis_ui`    | `rediscommander:latest` | `8081`       | UI web para inspeccionar Redis             |
+
+
+ 
