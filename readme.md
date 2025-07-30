@@ -1,6 +1,6 @@
 ## Consideraciones previas
 
-El mismo a estar dockerizado se debe tener el mismo antes, por lo tanto correr **docker -v** y verificar si el mismo esta instalado sino se puede instalar desde [aqui](https://docs.docker.com/)
+El proyecto al estar dockerizado se debe tener el mismo antes, por lo tanto correr **docker -v** y verificar si el mismo esta instalado sino se puede instalar desde [aqui](https://docs.docker.com/)
 
 ## Paso 1 – Levantar el entorno
 
