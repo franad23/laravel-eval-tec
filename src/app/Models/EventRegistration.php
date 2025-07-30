@@ -10,7 +10,7 @@ class EventRegistration extends Model
 
     protected $fillable = [
         'name',
-        'last_name',
+        'lastname',
         'email',
         'dni',
     ];
