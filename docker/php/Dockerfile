@@ -1,6 +1,5 @@
 FROM php:8.3-cli
 
-# Instalar dependencias, extensiones y phpredis
 RUN apt-get update && apt-get install -y \
     git unzip curl libpq-dev zip libzip-dev \
     && docker-php-ext-install pdo pdo_pgsql zip \
@@ -12,11 +11,13 @@ RUN groupadd -g 1000 devuser \
     && useradd -m -u 1000 -g 1000 -s /bin/bash devuser \
     && echo "devuser ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
-# Cambiar usuario por defecto
+
+RUN mkdir -p /var/www/storage /var/www/bootstrap/cache \
+    && chown -R devuser:devuser /var/www/storage /var/www/bootstrap/cache \
+    && chmod -R 775 /var/www/storage /var/www/bootstrap/cache
+
 USER devuser
 
-# Establecer directorio de trabajo
 WORKDIR /var/www
 
-# Instala Composer copiándolo de la imagen oficial de Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
